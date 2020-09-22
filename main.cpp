@@ -2,19 +2,15 @@
 *
 *	Projeto: Agenda de contatos
 *
-*	FunÃ§Ã£o: Entrar com dados de contato para inserir em uma agenda utilizando estrutura MAP
+*	Função: Entrar com dados de contato para inserir em uma agenda utilizando estrutura MAP
 *
 *****************************************************
 *
-*	Autor: Felipe Costa de Jesus
-*	Autor: Pedro Ventura 
-*
+*	Autor: Felipe Costa de Jesus, Pedro Ventura
 *	Email: felipe.costa.10@hotmail.com
-*	Email: ppedroventura@gmail.com
-*
 *****************************************************
 *
-*	AlteraÃ§Ã£o
+*	Alteração
 *
 *	Data: 22/09/2020
 *
@@ -51,13 +47,13 @@ int main(){
     int num;
     map<int,pessoa> map_agenda;
     map<int, pessoa>::iterator it;
-    //o laï¿½o de repetiï¿½ï¿½o serve para manter a comunicaï¿½ï¿½o com o usuï¿½rio atravï¿½s do menu a a opï¿½ï¿½o escolhida pelo usuï¿½rio
+    //o laço de repetição serve para manter a comunicação com o usuário através do menu a a opção escolhida pelo usuário
     while(true){
 	   	menu();
     	cout << "Opcao - ";
        	cin >> opcao;
        
-       //define a escolha do usuï¿½rio
+       //define a escolha do usuário
        if(opcao == 0){
            break;
        }else if(opcao == 1){
@@ -70,16 +66,15 @@ int main(){
         system("pause");
        }else if(opcao == 2){
            system("cls");
-           //solicita ao usuï¿½rios os dados
+           //solicita ao usuários os dados
            cout << "Nome: ";
            cin >> nome;
            cout << "Sobrenome: ";
            cin >> sobrenome;
            cout << "Nr: ";
            cin >> num;
-		   
-		   
-           //verifica se o nï¿½mero do telefone jï¿½ existe no mapa
+		   	   
+           //verifica se o número do telefone já existe no mapa
            it = map_agenda.find(num);
            if(it != map_agenda.end()){
 	           	cout<<"O numero informado ja existe"<<endl;
@@ -87,18 +82,19 @@ int main(){
 	           	cin>>subst;
 	           	if(subst!=1){
 	           		continue;
-				   }
-			   }else{
-			   		//Funï¿½ï¿½o que substitui caso o numero da chave for igual
-			  	 	map_agenda.insert(make_pair(num , pessoa(nome, sobrenome)));
-			  	 	continue;
+				}else{
+			   		//Se o elemento já existir, será alterado, caso contrário será inserido
+			  	 	map_agenda[num] = pessoa(nome,sobrenome);
+			  	 	cout<<"Contato alterado com sucesso!!"<<endl;
+			  	 	system("pause");
+					continue;
 			   }
-       		//insere o dado no mapa, se existir, irï¿½ substituir
-	   		map_agenda[num] = pessoa();
+			}
+       		//insere o dado no mapa, se existir, irá substituir
+       		map_agenda.insert(make_pair(num, pessoa(nome, sobrenome)));
        		cout<<"Contato adicionado com sucesso!!"<<endl;
+       		
 		system("pause");
-		
-		
        }else if(opcao == 3){
            cout << "Nr excluir: ";
            cin >> num;
@@ -165,7 +161,7 @@ int main(){
            if(!map_agenda.empty()){
            	for(it = map_agenda.begin(); it != map_agenda.end(); it++){
            		cout<<"----------------------"<<endl;
-           		cout<<"Numero: "<< it->first <<endl;
+           		cout<<"Telefone: "<< it->first <<endl;
            		it->second.imprimir();
            		cout<<""<<endl;
 			   }
@@ -181,16 +177,14 @@ int main(){
        else if(opcao == 9){
        	if(!map_agenda.empty()){
            	for(it = map_agenda.begin(); it != map_agenda.end(); it++){
-           		cout<<"----------------------"<<endl;
-           		cout<<"Numero: "<< it->first <<endl;
-				it->second.imprimir();
-       		}
-	   }
-	   system("pause");
-	}
-    }//#end while
-
+	           		cout<<"----------------------"<<endl;
+	           		cout<<"Numero: "<< it->first <<endl;
+					it->second.imprimir();
+       			}
+	   		}	
+	   	system("pause");
+	  	}
+	}//#end while
     return 0;
-    
-	}
+}
  
